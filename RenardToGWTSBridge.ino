@@ -61,7 +61,7 @@
 
 
 // ****** Configurable items below this point ******
-#define IRledPin 40
+#define IRledPin 3
 bool debug = true;
 // ****** Nothing beyond this point is configurable unless you know what you're doing ******
 
@@ -113,16 +113,13 @@ byte codeLookup[5][5][5] = {
  
 void setup() {
   delay(10);
-  Serial1.begin(2400);
-  delay(10);
-  Serial.begin(19200);
+  Serial.begin(57600);
   pinMode(IRledPin, OUTPUT); 
-  pinMode(13, OUTPUT); // Clock Timing Monitor Pin
   sync = false;
 }
  
 void wait_for_serial() {
-    while ( ! Serial1.available() > 0 ) { }
+    while ( ! Serial.available() > 0 ) { }
 }
 
 unsigned char calc_crc(unsigned char *data, unsigned char length) {
@@ -176,7 +173,7 @@ int renardReadBytes( uint8_t *bytes, uint8_t bytes_size ) {
  
   for ( bytes_read = 0; bytes_read < bytes_size; ) {
     wait_for_serial();
-    in_byte = Serial1.read();
+    in_byte = Serial.read();
     switch (in_byte) {
       case(0x7E): // We saw the sync byte, start over!
         sync = true;
@@ -187,7 +184,7 @@ int renardReadBytes( uint8_t *bytes, uint8_t bytes_size ) {
  
       case(0x7F): // Escape character, we need to read one more byte to get our actual data
         wait_for_serial();
-        in_byte = Serial1.read();
+        in_byte = Serial.read();
         switch (in_byte) {
             case(0x2F): // renard wants an 0x7D
               in_byte = 0x7D;
@@ -207,7 +204,7 @@ int renardRead( uint8_t *bytes, uint8_t byte_count ) {
  
   while ( ! sync ) {
     wait_for_serial();
-    in_byte = Serial1.read();
+    in_byte = Serial.read();
     if ( in_byte == 0x7E ) // Sync byte signifies start of packet
       sync = true;
   }
@@ -215,7 +212,7 @@ int renardRead( uint8_t *bytes, uint8_t byte_count ) {
   if ( sync ) {
     sync = false;
     wait_for_serial();
-    in_byte = Serial1.read();
+    in_byte = Serial.read();
     if ( in_byte == 0x80 ) { // Read from here 
       return renardReadBytes(bytes, byte_count);
     }
