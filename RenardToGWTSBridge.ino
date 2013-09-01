@@ -62,7 +62,7 @@
 
 // ****** Configurable items below this point ******
 #define IRledPin 3
-bool debug = true;
+bool debug = false;
 // ****** Nothing beyond this point is configurable unless you know what you're doing ******
 
 bool sync;
