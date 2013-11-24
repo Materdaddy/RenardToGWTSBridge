@@ -282,7 +282,7 @@ void loop() {
       cmdbuf[4] = codeLookup[rRed][rGreen][rBlue]; // Add 0x80 to color code for the right ear
       tempArray[0] = '8';
       tempArray[1] = '0';
-      cmdbuf[4] = cmdbuf[4] + bytefromhex(tempArray);
+      cmdbuf[4] = cmdbuf[4] + 0x80;
       cmdcount = 6;
       checksum = calc_crc(cmdbuf, cmdcount);
     }
