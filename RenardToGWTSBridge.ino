@@ -240,18 +240,20 @@ void loop() {
     if (rGreen > 4) rGreen = 4;
     if (rBlue > 4) rBlue = 4;
     if (debug) {
-      Serial.print("Left RGB Values are ");
-      Serial.print(lRed);
-      Serial.print(" ");
-      Serial.print(lGreen);
-      Serial.print(" ");
-      Serial.println(lBlue);
-      Serial.print("Right RGB Values are ");
-      Serial.print(rRed);
-      Serial.print(" ");
-      Serial.print(rGreen);
-      Serial.print(" ");
-      Serial.println(rBlue);
+      //Serial.print("Left RGB Values are ");
+      Serial.print("LR:");
+      Serial.print(lRed, HEX);
+      Serial.print(" G:");
+      Serial.print(lGreen, HEX);
+      Serial.print(" B:");
+      Serial.println(lBlue, HEX);
+      //Serial.print("Right RGB Values are ");
+      Serial.print("RR:");
+      Serial.print(rRed, HEX);
+      Serial.print(" G:");
+      Serial.print(rGreen, HEX);
+      Serial.print(" B:");
+      Serial.println(rBlue, HEX);
     }
     char tempArray[2];
     if ((lRed == rRed) && (lGreen == rGreen) && (lBlue == rBlue)) {
@@ -266,9 +268,6 @@ void loop() {
       checksum = calc_crc(cmdbuf, cmdcount);
     }
     else {
-      if (debug) {
-        Serial.println("*** ABOVE IS DIFFERENT ***");
-      }
       tempArray[0] = '9';
       tempArray[1] = '4';
       cmdbuf[0] = bytefromhex(tempArray); //0x94;
