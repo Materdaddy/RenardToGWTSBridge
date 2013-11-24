@@ -271,7 +271,7 @@ void loop() {
       }
       tempArray[0] = '9';
       tempArray[1] = '4';
-      cmdbuf[0] = bytefromhex(tempArray); //0x91;
+      cmdbuf[0] = bytefromhex(tempArray); //0x94;
       tempArray[0] = '0';
       tempArray[1] = 'E';
       cmdbuf[1] = bytefromhex(tempArray); //0x0E;
